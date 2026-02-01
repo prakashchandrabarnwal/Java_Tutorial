@@ -16,6 +16,6 @@ public class Alien
     private int aid;
     private String aname;
     private String tech;
-    @OneToMany(mappedBy = "alien")
+    @OneToMany(mappedBy = "alien", fetch = FetchType.EAGER) //by default its FetchType.LAZY
     private List<Laptop> laptops;
 }
