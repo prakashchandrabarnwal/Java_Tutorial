@@ -1,6 +1,10 @@
 package org.prakash;
 import java.util.Arrays;
 
+import org.prakash.manyToMany.Alien;
+import org.prakash.manyToMany.AlienService;
+import org.prakash.manyToMany.Laptop;
+
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -17,12 +21,24 @@ public class Main {
         window.setBrand("windows");
         window.setModel("XPS");
 
-        Alien alien = new Alien(3,"Prakash","average", Arrays.asList(mac, window));
+        Alien prakash = new Alien(3,"Prakash","Java", Arrays.asList(mac, window));
+        Alien barnwal = new Alien(4, "barnwal", "TypeScript", Arrays.asList(window));
 
-        mac.setAlien(alien);
-        window.setAlien(alien);
 
-        AlienService.createAlien(alien);
+
+        //used for OneToMany
+        // mac.setAlien(alien);
+        // window.setAlien(alien);
+
+        mac.setAliens(Arrays.asList(prakash));
+        window.setAliens(Arrays.asList(barnwal));
+
+        prakash.setLaptops(Arrays.asList(mac, window));
+        barnwal.setLaptops(Arrays.asList(window, mac));
+
+
+
+        AlienService.createAlien(Arrays.asList(prakash, barnwal), Arrays.asList(mac, window));
 
     }
 }

@@ -1,4 +1,4 @@
-package org.prakash;
+package org.prakash.manyToMany;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -16,6 +16,6 @@ public class Alien
     private int aid;
     private String aname;
     private String tech;
-    @OneToMany(mappedBy = "alien")
+    @ManyToMany
     private List<Laptop> laptops;
 }

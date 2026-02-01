@@ -1,4 +1,6 @@
-package org.prakash;
+package org.prakash.manyToMany;
+
+import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -13,12 +15,12 @@ class MyExpception extends Exception{
 
 public class AlienService {
 
-    public static  boolean createAlien(Alien alien) throws Exception{
+    public static  boolean createAlien(List<Alien> aliens , List<Laptop> laptops) throws Exception{
 
         try {
             SessionFactory sf = new Configuration()
-                    .addAnnotatedClass(org.prakash.Alien.class)
-                    .addAnnotatedClass(org.prakash.Laptop.class)
+                    .addAnnotatedClass(org.prakash.manyToMany.Alien.class)
+                    .addAnnotatedClass(org.prakash.manyToMany.Laptop.class)
                     .configure()
                     .buildSessionFactory();
 
@@ -26,15 +28,18 @@ public class AlienService {
 
             Transaction tx = session.beginTransaction();
 
-            for (Laptop laptop : alien.getLaptops()) {
+            for (Laptop laptop : laptops) {
                 session.persist(laptop);
             }
 
-            session.persist(alien);
+            for(Alien alien : aliens){
+                session.persist(alien);
+            }
+
+            
 
             tx.commit();
-            Alien res = session.getReference(Alien.class, alien.getAid());
-            System.out.println(res);
+           
             session.close();
             sf.close();
 

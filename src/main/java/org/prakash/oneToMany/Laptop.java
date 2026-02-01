@@ -1,4 +1,4 @@
-package org.prakash;
+package org.prakash.oneToMany;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
